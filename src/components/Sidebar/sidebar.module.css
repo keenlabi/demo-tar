@@ -1,0 +1,33 @@
+.container {
+    width: 100%;
+}
+
+.nav_item {
+    display: flex;
+    align-items: center;
+    padding: 8% 5%;
+    background: white;
+    cursor: pointer;
+}
+.nav_item:hover {
+    background: rgba(211, 211, 211, 0.122);
+}
+.nav_item .icon {
+    font-size: 1.5em;
+    margin-right: 10px;
+    color: var(--grey-icon);
+}
+.nav_item .label {
+    text-transform: capitalize;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: var(--grey-subheading);
+}
+
+.active_link {
+    background: var(--grey-faded-background);
+    border-right: 2px solid var(--blue-100);
+}
+.active_link .icon {
+    color: var(--blue-100);
+}

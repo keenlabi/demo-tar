@@ -1,0 +1,28 @@
+
+.container {
+    border-bottom: 1px solid var(--grey-line);
+    height: 70px;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+}
+.image_wrapper {
+    width: 5vw;
+}
+.text {
+    font-weight: 700;
+    font-size: 1.5em;
+}
+
+.date {
+    margin-left: auto;
+    font-weight: 500;
+}
+
+.user_profile_wrapper {
+    margin-left: auto;
+}

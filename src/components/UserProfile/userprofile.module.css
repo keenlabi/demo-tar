@@ -1,0 +1,55 @@
+.container *::selection {
+    background: none;
+    color: none;
+}
+.container {
+    position: relative;
+}
+.container_entry {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.profile_image_wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.profile_image_wrapper img {
+    object-fit: cover;
+}
+
+.username {
+    margin-left: 5px;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--grey-subheading);
+}
+
+.icon {
+    margin: auto 0 6px 0;
+    color: var(--grey-subheading);
+}
+
+.menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    margin-top: 3%;
+    border-radius: 5px;
+    box-shadow: var(--shadow-100);
+}
+.menu > div {
+    border-bottom: 1px solid ;
+    padding: 5% 10%;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+.menu > div:last-child {
+    border: none;
+}

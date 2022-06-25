@@ -169,25 +169,16 @@ export default function SchoolsDataTable() {
         body: []
     });
 
-    const [filterOptions, setFilterOptions]:any = useState({
-        categories: 'all',
-        schoolType: 'all',
-        location: 'all',
-        lga: 'all'
-    });
-
     const [filteredData, setFilteredData]:any = useState([]);
 
     const filterBySearchKeyword = (keyword:any)=> {
         filteredData.splice(0, filteredData.length);
 
-        tableData.body.map((bodyItem:any)=> {
-            bodyItem.list.forEach((item:any)=> {
-                if(item.toString().search(keyword) !== -1 && !filteredData.includes(bodyItem)) {
-                    filteredData.push(bodyItem)
-                }
-            });
-        });
+        tableData.body.map((bodyItem:any)=> bodyItem.list.forEach((item:any)=> {
+            if(item.toString().search(keyword) !== -1 && !filteredData.includes(bodyItem)) {
+                filteredData.push(bodyItem)
+            }
+        }));
 
         setFilteredData([...filteredData]);
     }
@@ -200,12 +191,10 @@ export default function SchoolsDataTable() {
         filteredData.splice(0, filteredData.length);
         setFilteredData([...filteredData]);
 
-        dataToFilter.map((bodyItem:any)=> {
-            console.log(bodyItem, selectedCategory);
-            if(bodyItem.list[5].toLowerCase() === selectedCategory.toLowerCase()) {
-                filteredData.push(bodyItem)
-            }
-        });
+        dataToFilter.map((bodyItem:any) => (bodyItem.list[5].toLowerCase() === selectedCategory.toLowerCase())
+            ?   filteredData.push(bodyItem)
+            :   null
+        );
 
         setFilteredData([...filteredData]);
     }
@@ -218,11 +207,10 @@ export default function SchoolsDataTable() {
         filteredData.splice(0, filteredData.length);
         setFilteredData([...filteredData]);
 
-        dataToFilter.map((bodyItem:any)=> {
-            if(bodyItem.list[4].toLowerCase() === selectedSchoolType) {
-                filteredData.push(bodyItem)
-            }
-        });
+        dataToFilter.map((bodyItem:any)=> (bodyItem.list[4].toLowerCase() === selectedSchoolType)
+            ?   filteredData.push(bodyItem)
+            :   null
+        );
 
         setFilteredData([...filteredData]);
     }
@@ -237,11 +225,10 @@ export default function SchoolsDataTable() {
         filteredData.splice(0, filteredData.length);
         setFilteredData([...filteredData]);
 
-        dataToFilter.map((bodyItem:any)=> {
-            if(bodyItem.list[3].toLowerCase() === selectedLocation) {
-                filteredData.push(bodyItem)
-            }
-        });
+        dataToFilter.map((bodyItem:any)=> (bodyItem.list[3].toLowerCase() === selectedLocation)
+            ?   filteredData.push(bodyItem)
+            :   null
+        );
 
         setFilteredData([...filteredData]);
     }
@@ -254,12 +241,10 @@ export default function SchoolsDataTable() {
         filteredData.splice(0, filteredData.length);
         setFilteredData([...filteredData]);
 
-        dataToFilter.map((bodyItem:any)=> {
-            console.log(bodyItem.list[2], selectedLGA);
-            if(bodyItem.list[2].toLowerCase() === selectedLGA.toLowerCase()) {
-                filteredData.push(bodyItem)
-            }
-        });
+        dataToFilter.map((bodyItem:any)=> (bodyItem.list[2].toLowerCase() === selectedLGA.toLowerCase())
+            ?   filteredData.push(bodyItem)
+            :   null
+        );
 
         setFilteredData([...filteredData]);
     }
@@ -274,11 +259,13 @@ export default function SchoolsDataTable() {
             const allSchools:any = [];
 
             response.docs.map((doc)=> {
-                const item = doc.data();
-                allSchools.unshift({
-                    id: doc.id, 
-                    list: [item.name, item.nemisCode, item.lga, item.town, item.type, item.category]
-                });
+                return (()=> {
+                    const item = doc.data();
+                    allSchools.unshift({
+                        id: doc.id, 
+                        list: [item.name, item.nemisCode, item.lga, item.town, item.type, item.category]
+                    })
+                })
             });
         
             tableData.body = allSchools;
@@ -287,7 +274,7 @@ export default function SchoolsDataTable() {
 
         getSchools();
 
-    }, []);
+    }, [schoolsCollectionRef, tableData]);
 
     return (
         <div className={styles.container}>

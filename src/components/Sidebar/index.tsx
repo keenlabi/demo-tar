@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FaChalkboardTeacher, FaGraduationCap, FaSchool, FaUsers } from "react-icons/fa";
 import { MdPieChart } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -8,7 +7,7 @@ export default function SideBar (props:any) {
 
     const { navItemOffset } = props;
 
-    const [navList, setNavList] = useState([
+    const navList = [
         {
             label: 'dashboard',
             icon: <MdPieChart />,
@@ -57,7 +56,7 @@ export default function SideBar (props:any) {
             link: '',
             active: false
         },
-    ]);
+    ];
 
     return (
         <div className={styles.container}>

@@ -1,4 +1,3 @@
-import { FaCheck } from "react-icons/fa";
 import styles from "./radioinput.module.css"
 
 export default function CheckBox(props:any) {

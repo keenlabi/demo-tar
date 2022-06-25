@@ -6,7 +6,7 @@ export default function Header() {
     const imageLogo = '';
 
     const detTodayDate = ()=> {
-        const date = new Date;
+        const date = new Date();
         const literalDate = date.toLocaleDateString('en-us', {
             month: 'long',
             day: 'numeric',

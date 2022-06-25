@@ -1,4 +1,4 @@
-import { collection, doc, getDoc } from "firebase/firestore"
+import { doc, getDoc } from "firebase/firestore"
 import { db } from "../../firebaseconfig";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -24,7 +24,7 @@ export default function School(props:any) {
         }
 
         getSchool();
-    },[]);
+    },[schoolDocumentRef]);
 
     const detDate = (dateInString:string)=> {
         console.log(dateInString);

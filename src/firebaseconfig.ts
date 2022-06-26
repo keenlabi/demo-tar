@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore"; 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAy4KyCyGdkjxnAIVGWpgXtz09kkvg1NF4",
-  authDomain: "fir-e2956.firebaseapp.com",
-  projectId: "fir-e2956",
-  storageBucket: "fir-e2956.appspot.com",
-  messagingSenderId: "4572429365",
-  appId: "1:4572429365:web:aa0591de9efa32b67cc57c"
+  apiKey: "AIzaSyDMK6Uy9tZ3r4kx32CByxP47qqk45cuTuI",
+  authDomain: "fir-tar.firebaseapp.com",
+  projectId: "fir-tar",
+  storageBucket: "fir-tar.appspot.com",
+  messagingSenderId: "732971743780",
+  appId: "1:732971743780:web:8a5dccd04866fe140df6b1"
 };
 
 const app = initializeApp(firebaseConfig);

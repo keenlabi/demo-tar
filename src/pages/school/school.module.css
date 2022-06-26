@@ -70,7 +70,7 @@
 .date_of_est {
     display: flex;
     align-items: center;
-    margin-left: 2%;
+    margin-right: 1%;
 }
 .date_of_est .label {
     font-weight: 600;
@@ -78,4 +78,12 @@
 } 
 .date_of_est .date {
     margin-left: 4px;
+    font-size: 1.1em;
 } 
+.school_type {
+    text-transform: capitalize;
+    border-radius: 5px;
+    padding: 5px;
+    background: var(--blue-100-background); 
+    color: var(--blue-100);
+}

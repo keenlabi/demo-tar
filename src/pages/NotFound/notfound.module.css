@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+.notfound_message {
+    text-align: center;
+}
+.message {
+    font-size: 2em;
+    font-weight: 400;
+}
+.working_page_link {
+    font-weight: 700;
+    font-size: 1.1em;
+    border-bottom: 8px solid var(--blue-100);
+    width: max-content;
+    margin: 0 auto;
+    margin-top: 10%;
+    line-height: 80%;
+    font-size: 1.2em;
+    display: flex;
+}

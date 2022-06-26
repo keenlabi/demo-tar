@@ -18,6 +18,10 @@ export default function SchoolsDataTable() {
         isOptionsVisible: false,
         options: [
             {
+                label: 'All Categories',
+                selected: false
+            },
+            {
                 label: 'Traditional public school',
                 selected: false
             },
@@ -72,6 +76,10 @@ export default function SchoolsDataTable() {
         isOptionsVisible: false,
         options: [
             {
+                label: 'All L.G.A',
+                selected: false
+            },
+            {
                 label: 'Alimosho',
                 selected: false
             },
@@ -121,19 +129,19 @@ export default function SchoolsDataTable() {
     ]);
 
     const selectOption = (index:any, options:any, optionsTitle:any)=> {
-        if(optionsTitle === 'school-types') {
+        if(optionsTitle === 'school-types' && !options[index].selected) {
             const newOptions = setNewOption(index, options);
             setSchoolTypes([...newOptions]);
             filterBySchoolType(options[index].label);
         }
 
-        if(optionsTitle === 'locations') {
+        if(optionsTitle === 'locations' && !options[index].selected) {
             const newOptions = setNewOption(index, options);
             setLocations([...newOptions]);
             filterByLocation(options[index].label);
         }
 
-        if(optionsTitle === 'categories') {
+        if(optionsTitle === 'categories' &&  !categories.options[index].selected) {
             categories.options.forEach((schoolType:any)=> {
                 schoolType.selected = false;
             });
@@ -145,7 +153,7 @@ export default function SchoolsDataTable() {
             filterByCategory(categories.options[index].label);
         }
 
-        if(optionsTitle === 'lga') {
+        if(optionsTitle === 'lga' && !lga.options[index].selected) {
             lga.options.forEach((schoolType:any)=> {
                 schoolType.selected = false;
             });
@@ -168,8 +176,32 @@ export default function SchoolsDataTable() {
         heading: ['name', 'NEMIS code', 'LGA', 'location', 'type', 'category'],
         body: []
     });
-
+    
     const [filteredData, setFilteredData]:any = useState([]);
+
+    const [filterOptions, setFilterOptions] = useState({
+        category: 'all',
+        schoolType: 'all',
+        location: 'all',
+        lga: 'all'
+    });
+
+    function filterDataByOptions() {
+        filteredData.splice(0, tableData.body.length);
+        tableData.body.forEach((bodyItem:any)=> {
+            if(bodyItem.list[5] === filterOptions.category || filterOptions.category === 'all') {
+                if(bodyItem.list[4] === filterOptions.schoolType || filterOptions.schoolType === 'all') {
+                    if(bodyItem.list[3] === filterOptions.location || filterOptions.location === 'all') {
+                        if(bodyItem.list[2]  === filterOptions.lga || filterOptions.lga === 'all') {
+                            filteredData.push(bodyItem);
+                        }
+                    }
+                }
+            }
+
+            if(bodyItem.id === tableData.body[tableData.body.length-1].id) setFilteredData([...filteredData]);
+        });
+    }
 
     const filterBySearchKeyword = (keyword:any)=> {
         filteredData.splice(0, filteredData.length);
@@ -184,73 +216,33 @@ export default function SchoolsDataTable() {
     }
 
     const filterByCategory = (selectedCategory:any)=> {
-        const dataToFilter =    (filteredData.length > 0)
-                                ? filteredData
-                                : tableData.body
+        filterOptions.category = (selectedCategory === 'All Categories') ?'all' :selectedCategory.toLowerCase() ;
+        setFilterOptions({...filterOptions});
 
-        filteredData.splice(0, filteredData.length);
-        setFilteredData([...filteredData]);
-
-        dataToFilter.map((bodyItem:any) => (bodyItem.list[5].toLowerCase() === selectedCategory.toLowerCase())
-            ?   filteredData.push(bodyItem)
-            :   null
-        );
-
-        setFilteredData([...filteredData]);
+        filterDataByOptions();
     }
 
     const filterBySchoolType = (selectedSchoolType:any)=> {
-        const dataToFilter =    (filteredData.length > 0)
-                                ? filteredData
-                                : tableData.body
+        filterOptions.schoolType = selectedSchoolType.toLowerCase();
+        setFilterOptions({...filterOptions});
 
-        filteredData.splice(0, filteredData.length);
-        setFilteredData([...filteredData]);
-
-        dataToFilter.map((bodyItem:any)=> (bodyItem.list[4].toLowerCase() === selectedSchoolType)
-            ?   filteredData.push(bodyItem)
-            :   null
-        );
-
-        setFilteredData([...filteredData]);
+        filterDataByOptions();
     }
 
     const filterByLocation = (selectedLocation:any)=> {
-        const dataToFilter =    (filteredData.length > 0)
-                                ? filteredData
-                                : tableData.body
-
-        console.log(dataToFilter);
-
-        filteredData.splice(0, filteredData.length);
-        setFilteredData([...filteredData]);
-
-        dataToFilter.map((bodyItem:any)=> (bodyItem.list[3].toLowerCase() === selectedLocation)
-            ?   filteredData.push(bodyItem)
-            :   null
-        );
-
-        setFilteredData([...filteredData]);
+        filterOptions.location = selectedLocation.toLowerCase();
+        setFilterOptions({...filterOptions});
+        
+        filterDataByOptions();
     }
 
     const filterByLGA = (selectedLGA:any)=> {
-        const dataToFilter =    (filteredData.length > 0)
-                                ? filteredData
-                                : tableData.body
-
-        filteredData.splice(0, filteredData.length);
-        setFilteredData([...filteredData]);
-
-        dataToFilter.map((bodyItem:any)=> (bodyItem.list[2].toLowerCase() === selectedLGA.toLowerCase())
-            ?   filteredData.push(bodyItem)
-            :   null
-        );
-
-        setFilteredData([...filteredData]);
+        filterOptions.lga = (selectedLGA === 'All L.G.A') ?'all' :selectedLGA.toLowerCase();
+        setFilterOptions({...filterOptions});
+        
+        filterDataByOptions();
     }
 
-
-    // const schoolsCollectionRef = collex  ction(db, 'schools');
     const getSchools = async ()=> {
         const response = await getDocs(collection(db, 'schools'))
         const allSchools:any = [];
@@ -259,7 +251,7 @@ export default function SchoolsDataTable() {
             const item = doc.data();
             allSchools.unshift({
                 id: doc.id,
-                list: [item.name, item.nemisCode, item.lga, item.town, item.type, item.category]
+                list: [item.name, item.nemisCode, item.lga, item.location, item.type, item.category]
             })
         });
          

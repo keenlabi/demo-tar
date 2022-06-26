@@ -1,47 +1,48 @@
 import { FaChalkboardTeacher, FaGraduationCap, FaSchool, FaUsers } from "react-icons/fa";
 import { MdPieChart } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "./sidebar.module.css";
 
 export default function SideBar (props:any) {
 
     const { navItemOffset } = props;
+    const location = useLocation()
 
     const navList = [
         {
             label: 'dashboard',
             icon: <MdPieChart />,
-            link: '',
+            link: '/dashboard',
             active: false,
         },
         {
             label: 'schools by LGA',
             icon: <FaSchool />,
-            link: '',
+            link: '/schools-by-lga',
             active: false
         },
         {
             label: 'schools',
             icon: <FaSchool />,
-            link: '',
+            link: '/',
             active: true
         },
         {
             label: 'students',
             icon: <FaGraduationCap />,
-            link: '',
+            link: '/students',
             active: false
         },
         {
-            label: 'staff',
+            label: 'staffs',
             icon: <FaChalkboardTeacher/>,
-            link: '',
+            link: '/staffs',
             active: false
         },
         {
             label: 'user management',
             icon: <FaUsers />,
-            link: '',
+            link: '/user-management',
             active: false
         },
         {
@@ -68,7 +69,7 @@ export default function SideBar (props:any) {
                                         ${styles.nav_item} 
                                         ${navItemOffset}
                                         ${
-                                            (navItem.active)
+                                            (location.pathname === navItem.link)
                                             ? styles.active_link 
                                             :null
                                         }

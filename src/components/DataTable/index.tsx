@@ -18,7 +18,7 @@ export default function DataTable(props:any) {
             <div className={styles.body}>
                 {
                     body.map((bodyRow:any, rowCount:any)=> {
-                        return  <Link to={bodyRow.id} key={rowCount}>
+                        return  <Link to={`schools/${bodyRow.id}`} key={rowCount}>
                                     <div className={styles.body_row} >
                                         {
                                             bodyRow.list.map((eachRowCell:any, cellCount:any)=> {

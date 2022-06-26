@@ -11,6 +11,8 @@
 
   --blue-100: rgb(0, 149, 255);
 
+  --blue-100-background: rgba(0, 149, 255, 0.111);
+
   --shadow-100: 1px 1px 5px 1px rgba(211, 211, 211, 0.704);
   --shadow-200: 1px 1px 5px 1px rgba(211, 211, 211, 0.149);
 }

@@ -33,7 +33,7 @@ export default function School(props:any) {
         const month = parseInt(dateInString.split('/')[1])
         const year = parseInt(dateInString.split('/')[2])
 
-        const date = new Date(day, month, year).toLocaleDateString('en-us', {
+        const date = new Date(year, month, day).toLocaleDateString('en-us', {
             month: 'long',
             day: 'numeric',
             year: 'numeric'
@@ -53,9 +53,7 @@ export default function School(props:any) {
                     <div className={styles.back_icon_wrapper}>
                         <FaArrowLeft onClick={()=> navigate("/") } />
                     </div>
-                    {/* <div className={}>
-
-                    </div> */}
+                    
                     {
                         (Object.keys(schoolData).length === 0)
                         ?   <div className={styles.loader_wrapper}><SwingingDotsLoader /></div>
@@ -68,11 +66,11 @@ export default function School(props:any) {
                                         <div className={styles.school_name}>{ schoolData.name }</div>
                                         <div className={styles.meta_info}>
                                             <div className={styles.date_of_est}>
-                                                <div className={styles.date}>{ schoolData.type } School</div>
+                                                <div className={`${styles.date} ${styles.school_type}`}>{ schoolData.type } School</div>
                                             </div>
                                             <div className={styles.date_of_est}>
                                                 <div className={styles.label}>since:</div>
-                                                <div className={styles.date}>{ detDate(schoolData.date) }</div>
+                                                <div className={styles.date}>{ detDate(schoolData.dateOfEst) }</div>
                                             </div>
                                             <div className={styles.date_of_est}>
                                                 <div className={styles.label}>NEMIS:</div>

@@ -250,31 +250,26 @@ export default function SchoolsDataTable() {
     }
 
 
-    const schoolsCollectionRef = collection(db, 'schools');
+    // const schoolsCollectionRef = collex  ction(db, 'schools');
+    const getSchools = async ()=> {
+        const response = await getDocs(collection(db, 'schools'))
+        const allSchools:any = [];
+
+        response.docs.forEach((doc)=> {
+            const item = doc.data();
+            allSchools.unshift({
+                id: doc.id,
+                list: [item.name, item.nemisCode, item.lga, item.town, item.type, item.category]
+            })
+        });
+         
+        tableData.body = allSchools;
+        setTableData({...tableData});
+    }
 
     useEffect(()=> {
-        
-        const getSchools = async ()=> {
-            const response = await getDocs(schoolsCollectionRef)
-            const allSchools:any = [];
-
-            response.docs.map((doc)=> {
-                return (()=> {
-                    const item = doc.data();
-                    allSchools.unshift({
-                        id: doc.id, 
-                        list: [item.name, item.nemisCode, item.lga, item.town, item.type, item.category]
-                    })
-                })
-            });
-        
-            tableData.body = allSchools;
-            setTableData({...tableData});
-        }
-
         getSchools();
-
-    }, [schoolsCollectionRef, tableData]);
+    });
 
     return (
         <div className={styles.container}>
@@ -352,7 +347,7 @@ export default function SchoolsDataTable() {
             <div className={styles.table_wrapper}>
                 <DataTable 
                     headings={tableData.heading} 
-                    body={(filteredData.length === 0 && schoolTypes[0].selected && locations[0].selected && !categories.isSelected && !lga.isSelected  ) ?tableData.body :filteredData}
+                    body={(filteredData.length === 0 && schoolTypes[0].selected && locations[0].selected && !categories.isSelected && !lga.isSelected) ?tableData.body :filteredData}
                 />
             </div>
         </div>
